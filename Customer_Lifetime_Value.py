@@ -13,6 +13,17 @@ from sklearn.ensemble import RandomForestRegressor, GradientBoostingRegressor
 from sklearn.svm import SVR
 import xgboost as xgb
 from sklearn.metrics import mean_squared_error
+from zipfile import ZipFile
+import io
+from dateutil import parser
+
+# Load the dataset from a zip file
+zip_file_path = 'online_retail.zip'
+csv_filename = 'online_retail.csv'
+
+with ZipFile(zip_file_path, 'r') as z:
+    with z.open(csv_filename) as f:
+        df = pd.read_csv(f)
 
 # Load the dataset
 df = pd.read_csv('online_retail.csv')
@@ -47,7 +58,11 @@ if app_mode == "Data Preprocessing":
 
     # Converting dates
     st.write("### Converting `InvoiceDate` to Datetime Format")
-    df["InvoiceDate"] = pd.to_datetime(df["InvoiceDate"])
+    # Convert 'InvoiceDate' to datetime format
+    try:
+        df["InvoiceDate"] = df["InvoiceDate"].apply(lambda x: parser.parse(x, dayfirst=True))
+    except Exception as e:
+        st.error(f"Error parsing dates: {e}")
     st.write("Dataset with `InvoiceDate` converted to datetime format:")
     st.write(df.dtypes)
 
