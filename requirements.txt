@@ -1,5 +1,5 @@
 matplotlib==3.9.0
-numpy==2.0.0
+numpy==1.23.2
 pandas==2.2.2
 python_dateutil==2.9.0.post0
 scikit_learn==1.5.0
