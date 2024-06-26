@@ -25,8 +25,6 @@ with ZipFile(zip_file_path, 'r') as z:
     with z.open(csv_filename) as f:
         df = pd.read_csv(f)
 
-# Load the dataset
-df = pd.read_csv('online_retail.csv')
 
 # Define the sidebar menu
 st.sidebar.title("Menu")
