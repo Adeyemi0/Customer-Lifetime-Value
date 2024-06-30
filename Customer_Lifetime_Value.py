@@ -1,5 +1,3 @@
-# streamlit_app.py
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -25,10 +23,29 @@ with ZipFile(zip_file_path, 'r') as z:
     with z.open(csv_filename) as f:
         df = pd.read_csv(f)
 
-
 # Define the sidebar menu
 st.sidebar.title("Menu")
-app_mode = st.sidebar.selectbox("Choose the page", ["Data Preprocessing", "CLTV Prediction"])
+app_mode = st.sidebar.selectbox("Choose the page", ["Introduction", "Data Preprocessing", "CLTV Prediction"])
+
+# Define the Introduction page
+if app_mode == "Introduction":
+    st.title("Introduction to CLTV Prediction App")
+
+    st.write("""
+    This app is designed to predict Customer Lifetime Value (CLTV) using a dataset of online retail transactions. The dataset includes various features that describe customer purchases.
+
+    ### Data Dictionary
+    | Column       | Description                                    |
+    |--------------|------------------------------------------------|
+    | Invoice      | Invoice number (unique identifier for transactions) |
+    | StockCode    | Product code (unique identifier for products)  |
+    | Description  | Product description                            |
+    | Quantity     | Quantity of the product purchased              |
+    | InvoiceDate  | Date and time when the invoice was generated   |
+    | Price        | Price of the product per unit                  |
+    | Customer ID  | Unique identifier for each customer            |
+    | Country      | Country where the customer resides             |
+    """)
 
 # Define the Data Preprocessing page
 if app_mode == "Data Preprocessing":
